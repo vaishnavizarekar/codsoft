@@ -1,0 +1,99 @@
+import java.util.Scanner;
+
+public class ATM
+{
+  private int accnum;
+  private double balance;
+  private int pin;
+
+  public ATM (double accnum, int pin)
+  {
+    balance = 2000;
+    this.pin = pin;
+  }
+
+  public void deposit (double amount)
+  {
+    balance = balance+amount;
+  }
+
+  public void withdraw (double amount)
+  {
+    if (amount <= balance)
+      {
+	balance -= amount;
+      }
+    else
+      {
+	System.out.println ("Insufficient funds");
+      }
+  }
+
+  public void changePin (int newPin)
+  {
+    pin = newPin;
+  }
+
+  public void displayBalance ()
+  {
+    System.out.println ("Current balance:" + balance);
+  }
+
+  public static void main (String[]args)
+  {
+    System.out.println ("\t\tWelcome To Childern's Bank");
+    Scanner scanner = new Scanner (System.in);
+
+    System.out.print ("Enter Account Number:");
+    double accnum = scanner.nextDouble ();
+
+    System.out.print ("Enter PIN: ");
+    int pin = scanner.nextInt ();
+
+    ATM atm = new ATM (accnum, pin);
+
+    boolean exit = false;
+    while (!exit)
+      {
+	System.out.println ("\nATM Menu:");
+	System.out.println ("1. Deposit");
+	System.out.println ("2. Withdraw");
+	System.out.println ("3. Change PIN");
+	System.out.println ("4. Display Balance");
+	System.out.println ("5. Exit");
+
+	System.out.print ("Enter your choice: ");
+	int choice = scanner.nextInt ();
+
+	switch (choice)
+	  {
+	  case 1:
+	    System.out.print ("Enter amount to deposit:");
+	    double depositAmount = scanner.nextDouble ();
+	    atm.deposit (depositAmount);
+	    break;
+	  case 2:
+	    System.out.print ("Enter amount to withdraw:");
+	    double withdrawAmount = scanner.nextDouble ();
+	    atm.withdraw (withdrawAmount);
+	    break;
+	  case 3:
+	    System.out.print ("Enter new PIN: ");
+	    int newPin = scanner.nextInt ();
+	    atm.changePin (newPin);
+	    break;
+	  case 4:
+	    atm.displayBalance ();
+	    break;
+	  case 5:
+	    exit = true;
+	    break;
+	  default:
+	    System.out.println ("Invalid choice");
+	    break;
+	  }
+      }
+
+    System.out.println ("Thank you for using the ATM!");
+  }
+}
